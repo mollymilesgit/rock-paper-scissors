@@ -6,11 +6,6 @@ function getComputerChoice() {
     else if (compNum <= 2 && compNum > 1) {return "paper"} 
     else {return "scissors"}
 }
-// Get the human response of Rock Paper Scissors
-function getHumanChoice() {
-    let humanPrompt = prompt("Please Enter Your Choice");
-    return  humanPrompt.toLowerCase();
-}
 // Make values to keep track of score
 
 
@@ -18,41 +13,71 @@ function getHumanChoice() {
         let humanScore = 0;
 
         let computerScore = 0;
-
+        const scoreDiv = document.querySelector("#resultsDiv")
 
         function playRound(humanChoice, computerChoice) {
-        
-            if (humanChoice === computerChoice) {
-                console.log("It's a tie");
+            if (humanScore >= 5 || computerScore >= 5) {
+                winnerAt5()
+            }
+            else if (humanChoice === computerChoice) {
+                let roundPrompt = document.createElement("p");
+                roundPrompt.textContent = "It's a tie"
+                scoreDiv.textContent = (humanScore + " " + computerScore)
+                scoreDiv.appendChild(roundPrompt)
+                
             }
             else if (humanChoice === "rock"){
                 if (computerChoice === "scissors"){
                     humanScore += 1;
-                    console.log("You win, rock beats scissors");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+                    
+                    let roundPrompt = document.createElement("p");
+                    roundPrompt.textContent = "You win, rock beats scissors!"
+                    scoreDiv.appendChild(roundPrompt)
                 }
                 else if (computerChoice === "paper"){
                     computerScore += 1;
-                    console.log("You lose, paper beats rock :(");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+                    
+                    let roundPrompt = document.createElement("p")
+                    roundPrompt.textContent = "You lose, paper beats rock :("
+                    scoreDiv.appendChild(roundPrompt)
                 }
             }
             else if (humanChoice === "paper"){
                 if (computerChoice === "rock") {
                     humanScore += 1;
-                    console.log("You win, paper beats rock");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+
+                    let roundPrompt = document.createElement("p")
+                    roundPrompt.textContent = "You win, paper beats rock!";
+                    scoreDiv.appendChild(roundPrompt)
                 }
                 else if (computerChoice === "scissors") {
                     computerScore += 1;
-                    console.log("You lose, scissors beats paper :(");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+                    
+                    let roundPrompt = document.createElement("p") 
+                    roundPrompt.textContent = "You lose, scissors beats paper :(";
+                    scoreDiv.append(roundPrompt)
                 }
             }
             else if (humanChoice === "scissors") {
                 if (computerChoice === "paper") {
                     humanScore += 1;
-                    console.log("You win, scissors beats paper!");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+                   
+                    let roundPrompt = document.createElement("p");
+                    roundPrompt.textContent = "You win, scissors beats paper!";
+                    scoreDiv.append(roundPrompt)
                 }
                 else if (computerChoice === "rock"){
                     computerScore += 1;
-                    console.log("You lose, rock beats paper :(");
+                    scoreDiv.textContent = (humanScore + " " + computerScore)
+                    
+                    let roundPrompt = document.createElement("p")
+                    roundPrompt.textContent = "You lose, rock beats paper :(";
+                    scoreDiv.append(roundPrompt)
                 }
                
             }
@@ -69,26 +94,37 @@ function getHumanChoice() {
 
             const scissorsButton = document.querySelector("#scissorsButton")
             scissorsButton.addEventListener("click", () => {
-                playRound("scissors", getComputerChoice())
+                playRound("scissors", getComputerChoice());
             });
-    
+          
 
 
+            function winnerAt5() {
+            if (computerScore > humanScore) {
+               scoreDiv.textContent = (humanScore + " " + computerScore)
+                    
+               let roundPrompt = document.createElement("p")
+               roundPrompt.textContent = "You lose, the computer wins"
+               scoreDiv.appendChild(roundPrompt)
+            }
+            else if (humanScore > computerScore) {
+                scoreDiv.textContent = (humanScore + " " + computerScore)
 
+                let roundPrompt = document.createElement("p");
+                roundPrompt.textContent = "You win"
+                scoreDiv.appendChild(roundPrompt)
+            }
+            else if (humanScore === computerScore){
+                scoreDiv.textContent = (humanScore + " " + computerScore)
 
-            //if (computerScore > humanScore) {
-               //console.log("You lose, the computer wins")
-            //}
-            //else if (humanScore > computerScore) {
-               //console.log("You win")
-            //}
-            //else if (humanScore === computerScore){
-                //console.log("It's a tie, try again!")
-            //}
-            //else {
-               // console.log("This shouldn't happen")
-           // }
-           
+                let roundPrompt = document.createElement("p")
+                roundPrompt.textContent = "It's a tie, try again!"
+                scoreDiv.appendChild(roundPrompt)
+            }
+            else {
+                console.log("This shouldn't happen")
+            }
+        }
             
 
 
